@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myrs
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+      - key: myname
+        operator: In
+        values:
+          - santosh
+          - raju1
+          - nitish
+      - key: env
+        operator: NotIn
+        values:
+          - production
+  template:
+    metadata:
+      labels:
+        myname: santosh
+        env: development   # must match selector
+    spec:
+      containers:
+        - name: sk-1
+          image: centos:7
+          command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5; done"]
+

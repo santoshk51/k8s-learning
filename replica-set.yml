@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: name-replica-set
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:       # ✅ Correct spelling
+      - key: myname
+        operator: In
+        values: ["santosh1", "raju", "nitish", "chhotu"]   # ✅ must be 'values' not 'value'
+      - key: env
+        operator: NotIn
+        values: ["production"]
+  template:
+    metadata:
+      labels:
+        myname: santosh1     # ✅ matches one of the selector values
+        env: dev            # ✅ not "production", so allowed
+    spec:
+      containers:
+        - name: c01
+          image: ubuntu:latest
+          command: ["/bin/sh", "-c", "while true; do echo santosh; sleep 5; done"]
+
+
