@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skdeployments
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: deployments
+  template:
+    metadata:
+      name: sk-11
+      labels:
+        name: deployments
+    spec:
+      containers:
+        - name: sk-cont
+          image: php
+          command: ["/bin/sh", "-c", "while true; do echo hello-bhai; sleep 5; done"]
+
