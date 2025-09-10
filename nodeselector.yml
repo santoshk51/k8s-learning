@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-on-specific-node
+spec:
+  nodeSelector:
+    disktype: ssd   # must match the node label
+  containers:
+    - name: nginx
+      image: nginx:latest
+
